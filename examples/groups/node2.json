@@ -1,0 +1,24 @@
+{
+  "id": "node2",
+  "name": "Worker Node",
+  "profile": "bootkube-worker",
+  "selector": {
+    "mac": "00:0c:29:e3:c3:e0",
+    "os": "installed"
+  },
+  "metadata": {
+    "ipv4_address": "192.168.1.22",
+    "etcd_initial_cluster": "node1=http://node1.example.com:2380,node2=http://node2.example.com:2380,node3=http://node3.example.com:2380",
+    "etcd_name": "node2",
+    "k8s_dns_service_ip": "10.3.0.10",
+    "k8s_master_endpoint": "https://192.168.1.21:443",
+    "k8s_pod_network": "10.2.0.0/16",
+    "k8s_service_ip_range": "10.3.0.0/24",
+    "networkd_address": "192.168.1.22/16",
+    "networkd_dns": "192.168.1.250",
+    "networkd_gateway": "192.168.1.254",
+    "ssh_authorized_keys": [
+      "ADDME"
+    ]
+  }
+}

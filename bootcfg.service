@@ -1,0 +1,14 @@
+[Unit]
+Description=Bootcfg service
+After=systemd-networkd.service
+[Service]
+Restart=always
+TimeoutStartSec=1200s
+ExecStartPre=-/usr/bin/docker rm bootcfg
+ExecStart=/usr/bin/docker run -p 8080:8080 --name bootcfg \
+    -v /opt/services/examples:/var/lib/bootcfg \
+    -v /opt/services/examples/groups/bootkube-install:/var/lib/bootcfg/groups \
+    quay.io/coreos/bootcfg:v0.4.0 -address=0.0.0.0:8080 -log-level=debug
+ExecStop=-/usr/bin/docker stop bootcfg
+ExecStopPost=-/usr/bin/docker rm bootcfg
+

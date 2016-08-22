@@ -1,0 +1,38 @@
+---
+storage:
+  disks:
+    - device: /dev/sda
+      wipe_table: true
+      partitions:
+        - label: ROOT
+          number: 0
+  filesystems:
+    - name: rootfs
+      mount:
+        device: "/dev/sda1"
+        format: "ext4"
+        create:
+          force: true
+          options:
+            - "-LROOT"
+  files:
+    - filesystem: rootfs
+      path: /stockholm/core/foo
+      mode: 0644
+      user:
+        id: 500
+      group:
+        id: 500
+      contents:
+        inline: |
+          Example file contents
+
+{{ if index . "ssh_authorized_keys" }}
+passwd:
+  users:
+    - name: core
+      ssh_authorized_keys:
+        {{ range $element := .ssh_authorized_keys }}
+        - {{$element}}
+        {{end}}
+{{end}}
